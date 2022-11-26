@@ -1,0 +1,24 @@
+#productListContinare{
+    .prod-list{
+        height: 55vh;
+        overflow-y: auto;
+        .product{
+            display: flex;
+            width: 100%;
+            background-color: #f2f3f4;
+            border-radius: 4px;
+            .icon {
+                margin-left: 10px;
+                align-self: center;
+            }
+            .action{
+                align-items: center;
+                flex-direction: row;
+                .product-amount{
+                    width: 5vw;
+                    text-align-last: center;
+                }
+            }
+        }
+    }
+}

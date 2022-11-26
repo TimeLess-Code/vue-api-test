@@ -1,7 +1,9 @@
 <template>
   <div>
-    <CatFacts v-if="msg === '2'" />
-    <BoredActivities v-if="msg === '3'" />
+    <CatFacts v-if="tab === '2'" />
+    <BoredActivities v-if="tab === '3'" />
+    <BtcIndex v-if="tab === '4'" />
+    <MenuDemo v-if="tab === '5'" />
   </div>
 
 </template>
@@ -10,15 +12,20 @@
 
 import CatFacts from './CatFacts/CatFacts.vue';
 import BoredActivities from './Activities/BoredActivities.vue'
+import BtcIndex from './BTC/BtcIndex.vue';
+import MenuDemo from './Menu/MenuDemo.vue';
+
 
 export default {
   name: 'HomePage',
   components : {
     CatFacts,
-    BoredActivities
+    BoredActivities,
+    BtcIndex,
+    MenuDemo
   },
   props : {
-    msg : String,
+    tab : String,
   },
   data: () => ({
     inputModel : '',

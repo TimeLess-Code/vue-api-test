@@ -1,5 +1,27 @@
-.back-icon{
-    cursor: pointer;
+.top-actions{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
+    .back-icon{
+        i{
+            color: black;
+        }
+        cursor: pointer;
+    }
+    .send-order{
+        cursor: pointer;
+        i{
+            color: #7c5327;
+        }
+    }
+}
+
+.top-actions-header{
+    display: flex;
+    align-items: baseline;
+    .search-var{
+        margin-right: 20px;
+    }
 }
 
 .order-box{
@@ -9,7 +31,6 @@
     position: absolute;
     bottom: 0;
     overflow-y: auto;
-    border: 1px solid blueviolet;
     .ordered-product{
         display: flex;
         align-items: baseline;

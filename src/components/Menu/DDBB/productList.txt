@@ -1,45 +1,4 @@
-export {
-    getProductList,
-    getProdCustomList
-}
-
-function getProductList(prodId){
-    return prodId !== undefined && prodId !== null ? prodList.filter(x => x.id === prodId) : prodList
-}
-
-function getProdCustomList(){
-    return prodCutomList
-}
-
-const prodCutomList = [
-    'Queso cheddar',
-    'Queso roquefort',
-    'Carne',
-    'Pechuga',
-    'Huevo',
-    'Jalapeños',
-    'Cebolla',
-    'Tomate',
-    'Huevo',
-    'Bacon',
-    'Lechuga',
-    'Patatas',
-    'Pimientos rojos',
-    'Pimientos verdes'
-]
-
-const CATEGORY_ID = {
-    TORO : 'Toro',
-    PIEL : 'Piel',
-    ENSALADA : 'Ensalada',
-    BOCADILLO : 'Bocadillo',
-    PLATO_COMBINADO : 'Plato',
-    RACIONES : 'Racion',
-    POSTRES : 'Postres'
-}
-
-const prodList = [
-    // AÑADIR CATEGORY ID
+"{[
     { id: CATEGORY_ID.TORO, name : 'Toro sentado', price : '5.90€', description : 'Hamburguesa con queso cheddar', info : 'Description adicional', icon : 'mdi-hamburger', count : 0, customModel : []},
     { id: CATEGORY_ID.TORO, name : 'Toro loco', price : '6.90€', description : 'Hamburguesa, queso cheddar, lechuga, tomate, cebolla a la plancha y alioli', info : 'Description adicional', icon : 'mdi-hamburger', count : 0 , customModel : []},
     { id: CATEGORY_ID.TORO, name : 'Toro enfadado', price : '6.90€', description : 'Hamburguesa, queso cheddar, bacon, lechuga, tomate, cebolla a la plancha y salsa barbacoa', info : 'Description adicional', icon : 'mdi-hamburger', count : 0 , customModel : []},
@@ -91,4 +50,4 @@ const prodList = [
     { id: CATEGORY_ID.POSTRES, name : 'Volcan de chocolate', price : '4.50€', description : '', info : 'Description adicional', icon : 'fas fa-ice-cream', count : 0 },
     { id: CATEGORY_ID.POSTRES, name : 'Cafe escoces', price : '6.90€', description : '', info : 'Description adicional', icon : 'fas fa-ice-cream', count : 0 },
     { id: CATEGORY_ID.POSTRES, name : 'Cafe irlandes', price : '6.90€', description : '', info : 'Description adicional', icon : 'fas fa-ice-cream', count : 0 }
-]
+]}"

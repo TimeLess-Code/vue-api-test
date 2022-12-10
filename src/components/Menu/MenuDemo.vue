@@ -1,36 +1,45 @@
 <template>
     <div>
         <div class="ma-5" v-show="showAllCategories">
-            <v-autocomplete 
-            v-model="selectedProductList"
-            :items="products"
-            item-text="name"
-            item-value="name"
-            chips
-            label="Select"
-            multiple
-            >
-            <template v-slot:selection="prod">
-
-                <v-chip v-bind="prod.attrs" close @click="goto(prod.item.id)" @click:close="onRemove(prod.item)">
-                    <v-avatar left>
-                        <v-icon> {{prod.item.icon}} </v-icon>
-                    </v-avatar>
-                    {{ prod.item.name }}
-                    </v-chip>
-                </template>
-                <template v-slot:item="prod">
-                    <template >
-                        <v-list-item-avatar>
-                            <v-icon>{{prod.item.icon}}</v-icon>
-                        </v-list-item-avatar>
-
-                        <v-list-item-content>
-                            <v-list-item-title v-html="prod.item.name"></v-list-item-title>
-                        </v-list-item-content>
+            <div class="top-actions-header">
+                <v-autocomplete 
+                v-model="selectedProductList"
+                :items="products"
+                item-text="name"
+                item-value="name"
+                chips
+                label="Select"
+                multiple
+                class="search-var"
+                >
+                <template v-slot:selection="prod">
+                    <v-chip v-bind="prod.attrs" close @click="goto(prod.item.id)" @click:close="onRemove(prod.item)">
+                        <v-avatar left>
+                            <v-icon> {{prod.item.icon}} </v-icon>
+                        </v-avatar>
+                        {{ prod.item.name }}
+                        </v-chip>
                     </template>
-                </template>
-            </v-autocomplete>
+                    <template v-slot:item="prod">
+                        <template >
+                            <v-list-item-avatar>
+                                <v-icon>{{prod.item.icon}}</v-icon>
+                            </v-list-item-avatar>
+    
+                            <v-list-item-content>
+                                <v-list-item-title v-html="prod.item.name"></v-list-item-title>
+                            </v-list-item-content>
+                        </template>
+                    </template>
+                </v-autocomplete>
+
+                <div class="send-btn">
+                    <v-btn @click="sendOrder()">
+                        <v-progress-circular indeterminate color="black" v-show="sendingOrder" ></v-progress-circular>
+                        <v-icon v-show="!sendingOrder">fa-solid fa-paper-plane</v-icon>
+                    </v-btn>
+                </div>
+            </div>
     
             <v-list dense nav>
                 <v-list-item link v-for="cat in categories" :key="cat.name" @click="goto(cat.id)">
@@ -47,15 +56,26 @@
 
         <!-- COMPONENTS -->
         <div v-if="!showAllCategories" class="mt-5">
-            <div @click="allCategories" class="back-icon">
-                <v-icon>mdi-arrow-left-bold</v-icon>
+            <div class="top-actions">
+                <div class="back-icon">
+                    <v-btn @click="allCategories()">
+                        <v-icon>mdi-arrow-left-bold</v-icon>
+                    </v-btn>
+                </div>
+                <div class="send-order">
+                    <v-btn @click="sendOrder()">
+                        <v-progress-circular indeterminate color="black" v-show="sendingOrder" ></v-progress-circular>
+                            <v-icon v-show="!sendingOrder">fa-solid fa-paper-plane</v-icon>
+                        </v-btn>
+                    </div>
             </div>
+
             <div class="mt-2">
                 <ProductComponent :itemId=selectesCategory :order=order></ProductComponent>
             </div>
         </div>
-        
         <div class="order-box">
+            <v-divider></v-divider>
             <v-list>
                 <v-list-item v-for="prod in order" :key="prod.name">
                     <v-list-item-avatar>
@@ -73,36 +93,19 @@
                 </v-list-item>
             </v-list>
             <v-dialog v-model="showDetailModal">
-                <ProdDetails :product=detailObj />
+                <ProdDetails :productList=detailObjList :defaultProd=defaultProd />
             </v-dialog>
         </div>
     </div>
 </template>
 
 <!-- 
-    LISTAR LAS CATEGORIAS
-    CADA CATEOGORIA TIENE UN NOMBRE, UNA IMAGEN REPRESENTATIVA Y SU CORRESPONDIENTE LISTA DE PRODUCTOS
-        CADA PRODUCTO TIENE NOMBRE, INFORMACION DE SU COMPOSICION CULINARIA, OPCION DE MODIFICAR EL PRODUCTO (CANTIDAD DE UNIDADES Y COMPOSICION)
-
-    FUNCIONALIDADES:
-        MODIFICAR LA CANTIDAD DE PRODUCTOS: SE PERMITIRA MODIFICAR LA CANTIDAD DE UNA EN UNA O ELIMINAR TODAS LA UNIDADES DE LA COMANDA.
-        VISUALIZAR COMANDA MEDIANTE UN MODAL.
-        IMPLEMENTAR BUSCADOR DE PRODUCTOS GENERAL (ACCESIBLE DESDE CUALQUIER PUNTO DE LA APLICACION)
-        HACER UN BUSCADOR PARA QUITAR O PONER COSAS A LOS PRODUCTOS + TEXTO LIBRE
-        AÑADIR SCROLL SI ES DEMASIADO GRANDE (> 70% DE LA PANTALLA)
-        CREAR VISUALIZACION DEL PEDIDO
-        EN LA ORDEN
-            EL ICONO DE MODIFICAR PRODUCTO SE MOSTRARA UNICAMENTE SI EL TOTAL DE ESE PRDUCTO ES 1
-            SI ES MAYOR SE MOSTRARA UN ICONO QUE ABRIRA UN MODAL CON EL DESGLOSE DE LA ORDEN COMPLETA DE ESE PRODUCTO
-
-            HABRA UN ICONO DE 'VER ORDEN' PARA VISUALIZAR EL DESGLOSE DE TODA LA ORDEN  
-
     MEJORAS: 
-        CREAR UN COMPONENTE GENERICO Y HACER DISTINTAS LLAMADAS API PARA MOSTRAR TODAS LAS CATEGORIAS EN UN SOLO COMPONENTES
-        HACER QUE MANTENGA EL ULTIMO TAB SELECCIONADO AL RECARGAR LA PAGINA
-        CREAR NOMBRE DE USUARIOS
-        CREAR PANTALLA DE MESAS
-        CREAR UNA BASE DE DATOS Y HACES LLAMAS API A ESA BASE DE DATOS (FICHEROS)
+    1. FUNCIONALIDAD PARA SABER SI SE QUIERE SUMAR O RESTAR INGREDIENTES EN EL MODAL DE CUSTOMIZACOIN DEL PRODCUTO
+    2. NUMERO DE PRODUCTOS NORMALES Y NUMERO DE PRODUCTOS MODIFICADOS
+    3. CREAR PANTALLA DE MESAS
+    2. CREAR NOMBRE DE USUARIOS
+    4. CREAR UNA BASE DE DATOS Y HACER LLAMAS API A ESA BASE DE DATOS (FICHEROS)
  -->
 
 <script>
@@ -130,11 +133,13 @@ export default {
         showAllCategories : true,
         showDetailModal : false,
         ordeObjList : [],
-        detailObj : {}
+        detailObjList : {},
+        defaultProd : {},
+        sendingOrder : false
     }),
     methods: {
         loadData () {
-            this.products = ProductService.getAllProductList();
+            this.products = ProductService.getProductList();
             this.categories = MenuService.getCategories();
         },
         allCategories () {
@@ -142,7 +147,6 @@ export default {
             this.showAllCategories = true
         },
         goto (prodKeyWord) {
-            console.log(prodKeyWord);
             this.selectesCategory = this.categories.find(x => x.id === prodKeyWord).id;
             this.showAllCategories = false
         },
@@ -150,7 +154,11 @@ export default {
             this.selectedProductList = this.selectedProductList.filter(x => x !== item.name)
         },
         addToBill (prod) {
+            this.formatObjForDetailModal(prod)
+            // SI EL PRODUCTO AUN NO SE HA AÑADIDO A LA ORDEN SE AÑADE
+                // SI YA SE HA AÑADIDO SE ACTUALIZA LA CANTIDAD
             let index = this.order.map(x => x.name).indexOf(prod.name)
+            
             if(index >= 0){
                 prod.count !== 0 ? this.order[index].count = prod.count : this.order.splice(index, 1)
             } else {
@@ -158,17 +166,15 @@ export default {
             }
         },
         formatObjForDetailModal (prod) {
+            // OBJETO GENERICO
+            /* this.defaultProd = this.products.find(x => x.name === prod.name) */
+
             let p = {...prod}
-            let tmpObj = { name : '', amountOfProd : 0, prodList : [] }
+            let tmpObj = { name : '', amountOfProd : 0, prodList : [] , normal : true }
             if(prod.count > 0){
-                if(this.ordeObjList.length > 0 ){
-                    if(this.ordeObjList.some(x => x.name !== p.name) ){
-                        tmpObj.name = p.name;
-                        p.count = 1
-                        tmpObj.prodList.push(p);
-                        tmpObj.amountOfProd = tmpObj.prodList.length
-                        this.ordeObjList.push(tmpObj);
-                    } else {
+                if(this.ordeObjList.length > 0){
+                    if(this.ordeObjList.some(x => x.name === p.name)){
+                        // SI EXISTE UN EJEMPLAR DEL PRODUCTO, SE AÑADE A LA LISTA
                         this.ordeObjList.forEach(x => {
                             if(x.name === p.name){
                                 p.count = 1
@@ -176,6 +182,13 @@ export default {
                                 x.amountOfProd = x.prodList.length
                             }
                         })
+                    } else {
+                        // SI NO EXISTE UN EJEMPLAR DEL PRODUCTO
+                        tmpObj.name = p.name;
+                        p.count = 1
+                        tmpObj.prodList.push(p);
+                        tmpObj.amountOfProd = tmpObj.prodList.length
+                        this.ordeObjList.push(tmpObj);
                     }
                 } else {
                     tmpObj.name = p.name;
@@ -192,8 +205,7 @@ export default {
             }
         },
         seeProdDetails (prod) {
-            this.formatObjForDetailModal(prod)
-            this.detailObj = this.ordeObjList.find(x => x.name === prod.name).prodList
+            this.detailObjList = this.ordeObjList.find(x => x.name === prod.name).prodList
             this.showDetailModal = true
         },
         deleteObjFromList (list, obj) {
@@ -201,6 +213,10 @@ export default {
             if(index >= 0) list.splice(index, 1)
             
             return list
+        },
+        sendOrder () {
+            this.sendingOrder = true
+            setTimeout(() => this.sendingOrder = false,2000)
         }
     },
     beforeMount() {

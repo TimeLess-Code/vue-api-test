@@ -1,0 +1,9 @@
+.detail-container{
+    .header{
+        display: flex;
+        justify-content: space-between;
+        .modified{
+            color: green;
+        }
+    }
+}

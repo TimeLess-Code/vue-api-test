@@ -13,7 +13,7 @@
                         <v-btn @click="substractFromBill(item)" :disabled="item.count === 0" icon>
                             <v-icon color="black">mdi-minus</v-icon>
                         </v-btn>
-                        <v-text-field class="product-amount" v-model="item.count" @blur="onBlur(item)"> {{item.count}} </v-text-field>
+                        <span class="product-amount"> {{item.count}} </span>
                         <v-btn @click="addToBill(item)" icon>
                             <v-icon color="black">mdi-plus</v-icon>
                         </v-btn>

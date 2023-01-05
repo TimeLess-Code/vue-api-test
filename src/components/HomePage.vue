@@ -3,7 +3,7 @@
     <CatFacts v-if="tab === '2'" />
     <BoredActivities v-if="tab === '3'" />
     <BtcIndex v-if="tab === '4'" />
-    <MenuDemo id="Menu" v-if="tab === '5'" />
+    <RestaurantDemo id="Menu" v-if="tab === '5'" />
   </div>
 
 </template>
@@ -13,7 +13,7 @@
 import CatFacts from './CatFacts/CatFacts.vue';
 import BoredActivities from './Activities/BoredActivities.vue'
 import BtcIndex from './BTC/BtcIndex.vue';
-import MenuDemo from './Menu/MenuDemo.vue';
+import RestaurantDemo from './Restaurant/RestaurantDemo.vue';
 
 export default {
   name: 'HomePage',
@@ -21,7 +21,7 @@ export default {
     CatFacts,
     BoredActivities,
     BtcIndex,
-    MenuDemo
+    RestaurantDemo
   },
   props : {
     tab : String,

@@ -63,7 +63,7 @@ export default {
         },
         substractFromBill (prod) {
             if(prod.count > 0) prod.count--;
-            this.$parent.addToBill(prod)
+            this.$parent.substractFromBill(prod)
         },
         onBlur(prod) {
             if(prod.count < 0) prod.count = 0;

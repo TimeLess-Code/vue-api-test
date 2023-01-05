@@ -109,11 +109,11 @@
  -->
 
 <script>
-import ProductComponent from './Product/ProductComponent';
+import ProductComponent from '../Product/ProductComponent';
 import * as MenuService from './MenuDemo.service';
-import * as ProductService from './Product/Product.service.js'
+import * as ProductService from '../Product/Product.service.js'
 
-import ProdDetails from './Product/ProductDetails/ProdDetailsModal.vue'
+import ProdDetails from '../Product/ProductDetails/ProdDetailsModal.vue'
 
 import './menu.scss'
 
@@ -153,10 +153,15 @@ export default {
         onRemove (item) {
             this.selectedProductList = this.selectedProductList.filter(x => x !== item.name)
         },
+        substractFromBill (prod) {
+            console.log(this.order);
+            console.log(this.order, prod.name);
+        },
         addToBill (prod) {
-            this.formatObjForDetailModal(prod)
+            this.formatObjForDetailModal(prod);
+            
             // SI EL PRODUCTO AUN NO SE HA AÑADIDO A LA ORDEN SE AÑADE
-                // SI YA SE HA AÑADIDO SE ACTUALIZA LA CANTIDAD
+            // SI YA SE HA AÑADIDO SE ACTUALIZA LA CANTIDAD
             let index = this.order.map(x => x.name).indexOf(prod.name)
             
             if(index >= 0){
@@ -166,9 +171,6 @@ export default {
             }
         },
         formatObjForDetailModal (prod) {
-            // OBJETO GENERICO
-            /* this.defaultProd = this.products.find(x => x.name === prod.name) */
-
             let p = {...prod}
             let tmpObj = { name : '', amountOfProd : 0, prodList : [] , normal : true }
             if(prod.count > 0){

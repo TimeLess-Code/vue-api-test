@@ -6,7 +6,7 @@
         <v-tab @click="goto('2')">Cat Facts</v-tab>
         <v-tab @click="goto('3')">Bored Activities</v-tab>
         <v-tab @click="goto('4')">Bitcoin index</v-tab>
-        <v-tab @click="goto('5')">Menu demo</v-tab>
+        <v-tab @click="goto('5')">Restaurant demo</v-tab>
       </v-tabs>
     </v-app-bar>
 
@@ -18,9 +18,8 @@
 
 <script>
 import HomePage from './components/HomePage';
-import './components/navBar.css'
 
-import * as ConexionService from './components/Menu/Conexion/Conexion.service'
+import * as ConexionService from './components/Restaurant/Conexion/Conexion.service'
 
 export default {
   name: 'App',

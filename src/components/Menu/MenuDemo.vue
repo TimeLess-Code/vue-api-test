@@ -111,7 +111,7 @@
 <script>
 import ProductComponent from './Product/ProductComponent';
 import * as MenuService from './MenuDemo.service';
-import * as ProductService from './Product/Product.service'
+import * as ProductService from './Product/Product.service.js'
 
 import ProdDetails from './Product/ProductDetails/ProdDetailsModal.vue'
 

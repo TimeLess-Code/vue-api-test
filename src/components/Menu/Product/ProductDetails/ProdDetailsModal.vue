@@ -46,7 +46,7 @@
 
 <script>
 import './productDetail.scss';
-import * as ProductService from '../../Product/Product.service'
+import * as ProductService from '../Product.service.js'
 
 export default {
     name : 'ProdDetailsModal',

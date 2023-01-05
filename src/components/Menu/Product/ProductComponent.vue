@@ -33,7 +33,7 @@
 
 
 <script>
-import * as ProductService from './Product.service'
+import * as ProductService from './Product.service.js'
 import './product.scss'
 
 export default {
